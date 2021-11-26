@@ -11,11 +11,13 @@ const NewWatch = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data)
-    axios.post("http://localhost:5000/newWatch", data).then((res) => {
-      alert("New watch has been added!");
-      reset();
-    });
+    console.log(data);
+    axios
+      .post("https://still-peak-87260.herokuapp.com/newWatch", data)
+      .then((res) => {
+        alert("New watch has been added!");
+        reset();
+      });
   };
 
   return (

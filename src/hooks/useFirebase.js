@@ -22,10 +22,8 @@ initializeAuthentication();
 
 //provider
 
-
-
 const useFirebase = () => {
-  const [isAdmin, setIsAdmin] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false);
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
@@ -35,12 +33,11 @@ const useFirebase = () => {
   const [loading, setLoading] = useState(true);
 
   const googleProvider = new GoogleAuthProvider();
-const githubProvider = new GithubAuthProvider();
+  const githubProvider = new GithubAuthProvider();
 
-googleProvider.addScope('email');
+  googleProvider.addScope("email");
 
-const auth = getAuth();
-
+  const auth = getAuth();
 
   // console.log(user);
 
@@ -51,19 +48,16 @@ const auth = getAuth();
     }, 3000);
   }, [error]);
 
-
-  
-  useEffect( () => {
-    setIsAdmin(false)
-    axios.get(`http://localhost:5000/isAdmin?userEmail=${user.email}`)
-    .then(async res => {
-      
-         await setIsAdmin(res.data.isAdmin)
-         
-        
-    })
-    
-},[user.email])
+  useEffect(() => {
+    setIsAdmin(false);
+    axios
+      .get(
+        `https://still-peak-87260.herokuapp.com/isAdmin?userEmail=${user.email}`
+      )
+      .then(async (res) => {
+        await setIsAdmin(res.data.isAdmin);
+      });
+  }, [user.email]);
 
   //google sign in button
 
@@ -106,18 +100,15 @@ const auth = getAuth();
 
   //Get the currently signed in user and observe user state change
 
- 
-
   useEffect(() => {
-    setLoading(true)
-    onAuthStateChanged(auth, user => {
-        if (user) {
-            setUser(user)
-
-        }
-        setLoading(false)
-    })
-}, [])
+    setLoading(true);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+      }
+      setLoading(false);
+    });
+  }, []);
 
   //signUp means create new user with email and pass
   const signUp = (e) => {
@@ -184,7 +175,6 @@ const auth = getAuth();
   const getPhoto = (e) => {
     setPhoto(e?.target?.value);
   };
-
 
   return {
     getEmail,

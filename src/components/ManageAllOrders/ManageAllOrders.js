@@ -14,7 +14,7 @@ const ManageAllOrders = () => {
     const isDelete = window.confirm("Are you sure?");
     if (isDelete) {
       axios
-        .post("http://localhost:5000/deleteOrder", {
+        .post("https://still-peak-87260.herokuapp.com/deleteOrder", {
           UserId: id,
         })
         .then((res) => {
@@ -25,22 +25,26 @@ const ManageAllOrders = () => {
   };
 
   const handleUpdateStatus = (e) => {
-    e.preventDefault()
-        const status = e.target.value
-        const id = e.target.id
+    e.preventDefault();
+    const status = e.target.value;
+    const id = e.target.id;
 
-        axios.post('http://localhost:5000/updateStatus', { "status": status, "id": id })
-            .then(function (response) {
-              setStatusCount(statusCount + 1)
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
+    axios
+      .post("https://still-peak-87260.herokuapp.com/updateStatus", {
+        status: status,
+        id: id,
+      })
+      .then(function (response) {
+        setStatusCount(statusCount + 1);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/manageAllOrders")
+      .get("https://still-peak-87260.herokuapp.com/manageAllOrders")
       .then((res) => setAllOrders(res.data));
   }, [deleteCount, statusCount, user]);
 
@@ -67,12 +71,23 @@ const ManageAllOrders = () => {
                 <td>{order.status}</td>
 
                 <td>
-                  < select onChange={e => handleUpdateStatus(e)} defaultValue={order?.status} id={order?._id}
-
-                    className={`border-2  form-select block w-full p-2 font-semibold ${order?.status == 'Pending' ? 'text-warning border-warning' : 'text-success border-success'}`} >
-                    <option className="text-warning fw-bold" value="Pending">Pending</option>
-                    <option value="Approved" className="text-success fw-bold">Approved</option>
-                  </select >
+                  <select
+                    onChange={(e) => handleUpdateStatus(e)}
+                    defaultValue={order?.status}
+                    id={order?._id}
+                    className={`border-2  form-select block w-full p-2 font-semibold ${
+                      order?.status == "Pending"
+                        ? "text-warning border-warning"
+                        : "text-success border-success"
+                    }`}
+                  >
+                    <option className="text-warning fw-bold" value="Pending">
+                      Pending
+                    </option>
+                    <option value="Approved" className="text-success fw-bold">
+                      Approved
+                    </option>
+                  </select>
                 </td>
                 <td>
                   <button

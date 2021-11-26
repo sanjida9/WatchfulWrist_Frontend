@@ -13,12 +13,14 @@ const Home = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/watches")
+      .get("https://still-peak-87260.herokuapp.com/watches")
       .then((res) => setWatches(res.data));
 
-    axios.get("http://localhost:5000/getReviews").then((res) => {
-      setReviews(res.data);
-    });
+    axios
+      .get("https://still-peak-87260.herokuapp.com/getReviews")
+      .then((res) => {
+        setReviews(res.data);
+      });
   }, []);
   return (
     <div>

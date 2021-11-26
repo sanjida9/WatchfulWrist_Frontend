@@ -13,7 +13,7 @@ const MyOrders = () => {
     const isDelete = window.confirm("Are you sure?");
     if (isDelete) {
       axios
-        .post("http://localhost:5000/deleteOrder", {
+        .post("https://still-peak-87260.herokuapp.com/deleteOrder", {
           UserId: id,
         })
         .then((res) => {
@@ -25,12 +25,11 @@ const MyOrders = () => {
 
   useEffect(() => {
     axios
-      .post(
-        "http://localhost:5000/singleUserOrders",
-        { userEmail: user.email }
-      )
+      .post("https://still-peak-87260.herokuapp.com/singleUserOrders", {
+        userEmail: user.email,
+      })
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         setSingleUserOrder(res.data);
       });
   }, [user, deleteCount]);
